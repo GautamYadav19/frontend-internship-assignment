@@ -7,6 +7,10 @@ import { Book } from 'src/app/core/models/book-response.model';
   styleUrls: ['./table-view.component.scss'],
 })
 export class TableViewComponent {
+  @Input() itemsPerPage = 10;
+  @Input() currentPage = 1;
+  @Input() totalItems = 0;
   @Input() booksList: Book[] = [];
-  @Input() subjectName: string = '';
+  @Input() subjectName = '';
+  @Input() state = '';
 }
