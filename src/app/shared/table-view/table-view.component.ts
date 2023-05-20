@@ -12,5 +12,4 @@ export class TableViewComponent {
   @Input() totalItems = 0;
   @Input() booksList: Book[] = [];
   @Input() subjectName = '';
-  @Input() state = '';
 }

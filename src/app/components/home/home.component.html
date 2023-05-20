@@ -63,39 +63,33 @@
         </svg>
       </div>
     </div>
-    <front-end-internship-assignment-table-view
-      *ngIf="state === 'completed'"
-      [booksList]="books"
-      [subjectName]="query"
-      [currentPage]="currentPage"
-      [totalItems]="totalItems"
-      [itemsPerPage]="itemsPerPage"
-    ></front-end-internship-assignment-table-view>
 
-    <div
-      *ngIf="ResultDisplay"
-      class="tw-flex tw-justify-between tw-items-center"
-    >
-      <div *ngIf="state === 'completed'">
-        Showing {{ start }} of {{ endEntryCount }} entries
-        {{ totalItems }}
-      </div>
-      <div class="tw-flex tw-items-center">
-        <select
-          *ngIf="state === 'completed'"
-          class="tw-text-14-px"
-          (change)="displayPageNum($event)"
-        >
-          <option>10</option>
-          <option>25</option>
-          <option>50</option>
-          <option>100</option>
-        </select>
+    <div *ngIf="books.length > 0">
+      <front-end-internship-assignment-table-view
+        [booksList]="books"
+        [subjectName]="query"
+        [currentPage]="currentPage"
+        [totalItems]="totalItems"
+        [itemsPerPage]="itemsPerPage"
+      ></front-end-internship-assignment-table-view>
 
-        <pagination-controls
-          *ngIf="state === 'completed' && paginationWaiting === 'waiting'"
-          (pageChange)="renderPage($event)"
-        ></pagination-controls>
+      <div class="tw-flex tw-justify-between tw-items-center">
+        <div>
+          Showing {{ start }} of {{ endEntryCount }} entries
+          {{ totalItems }}
+        </div>
+        <div class="tw-flex tw-items-center">
+          <select class="tw-text-14-px" (change)="displayPageNum($event)">
+            <option>10</option>
+            <option>25</option>
+            <option>50</option>
+            <option>100</option>
+          </select>
+
+          <pagination-controls
+            (pageChange)="renderPage($event)"
+          ></pagination-controls>
+        </div>
       </div>
     </div>
   </div>

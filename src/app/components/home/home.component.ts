@@ -17,11 +17,9 @@ export class HomeComponent implements OnInit {
   currentPage = 1;
   totalItems = 0;
   state = 'initial';
-  ResultDisplay = false;
   query = '';
   start = 0;
   endEntryCount = 0;
-  paginationWaiting = '';
 
   constructor(private searchService: SearchService) {
     this.bookSearch = new FormControl('');
@@ -37,7 +35,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.bookSearch.valueChanges
-      .pipe(debounceTime(300))
+      .pipe(debounceTime(500))
       .subscribe((value: string) => {
         if (value)
           this.fetchSearchData(value, this.currentPage, this.itemsPerPage);
@@ -46,13 +44,11 @@ export class HomeComponent implements OnInit {
 
   fetchSearchData(value: string, currentPage: number, itemsPerPage: number) {
     this.state = 'Loading';
-    this.paginationWaiting = 'waiting';
     this.searchService.submitSearch(value, currentPage, itemsPerPage).subscribe(
       (data) => {
         this.books = data.docs;
 
         if (data.docs.length > 0) {
-          this.ResultDisplay = true;
           this.state = 'completed';
           this.query = value;
           this.totalItems = data.numFound;
