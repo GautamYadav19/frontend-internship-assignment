@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
   currentPage = 1;
   totalItems = 0;
   state = 'initial';
-  status = false;
   ResultDisplay = false;
   query = '';
   start = 0;
@@ -40,8 +39,8 @@ export class HomeComponent implements OnInit {
     this.bookSearch.valueChanges
       .pipe(debounceTime(300))
       .subscribe((value: string) => {
-        this.status = true;
-        this.fetchSearchData(value, this.currentPage, this.itemsPerPage);
+        if (value)
+          this.fetchSearchData(value, this.currentPage, this.itemsPerPage);
       });
   }
 
@@ -73,19 +72,15 @@ export class HomeComponent implements OnInit {
 
   renderPage(event: number) {
     this.currentPage = event;
-    this.fetchSearchData(
-      this.bookSearch.value,
-      this.currentPage,
-      this.itemsPerPage
-    );
+    this.fetchSearchData(this.query, this.currentPage, this.itemsPerPage);
   }
 
   displayPageNum(event: any) {
     this.itemsPerPage = event.target.value;
-    this.fetchSearchData(
-      this.bookSearch.value,
-      this.currentPage,
-      this.itemsPerPage
-    );
+    this.fetchSearchData(this.query, this.currentPage, this.itemsPerPage);
+  }
+
+  resetSearch() {
+    this.bookSearch.reset();
   }
 }
